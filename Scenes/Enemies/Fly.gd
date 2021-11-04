@@ -27,3 +27,8 @@ func kill():
 	
 func set_player(p):
 	player = p
+
+
+func _on_Area2D_area_entered(area):
+	kill()
+	pass # Replace with function body.

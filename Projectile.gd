@@ -19,3 +19,8 @@ func destroy():
 	
 func _on_Area2D_area_entered(area):
 	destroy()
+
+
+func _on_Area2D_body_entered(body):
+	destroy()
+	pass # Replace with function body.
