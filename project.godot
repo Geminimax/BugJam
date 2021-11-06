@@ -19,6 +19,13 @@ config/name="Russian Spy Simulator"
 run/main_scene="res://Scenes/World.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=640
+window/size/height=368
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [input]
 
 move_left={
