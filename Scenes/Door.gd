@@ -3,8 +3,10 @@ extends Node2D
 var open = false setget set_open
 var active = false setget set_active
 
+signal door_entered
+
 func _ready():
-	pass
+	set_active(false)
 
 func set_open(value):
 	open = value
@@ -21,3 +23,11 @@ func set_active(value):
 		$Area2D/CollisionShape2D.set_deferred("disabled", true)
 		$StaticBody2D/CollisionShape2D.set_deferred("disabled", true)
 		visible = false
+	else:
+		$Area2D/CollisionShape2D.set_deferred("disabled", open)
+		$StaticBody2D/CollisionShape2D.set_deferred("disabled", not open)
+		visible = true
+
+
+func _on_Area2D_area_entered(area):
+	emit_signal("door_entered")
