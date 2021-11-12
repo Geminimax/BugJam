@@ -7,12 +7,10 @@ var current_room_count = 0
 var rooms = []
 var level_matrix = []
 
-
-
 var directions = [Vector2.RIGHT, Vector2.LEFT, Vector2.UP, Vector2.DOWN]
-var room_scene = load("res://Scenes/Room.tscn")
 
-	
+export (Array, PackedScene) var room_layouts
+
 func generate():
 	#Initialization
 	for i in range(level_size):
@@ -21,8 +19,8 @@ func generate():
 			row.append(0)
 		level_matrix.append(row)
 	
-#	var current_position = Vector2(randi()%level_size, randi()%level_size)
-	var current_position = Vector2(0, 0)
+	var current_position = Vector2(randi()%level_size, randi()%level_size)
+#	var current_position = Vector2(0, 0)
 	
 	var position_stack = [current_position]
 	
@@ -45,7 +43,8 @@ func generate():
 
 func instantiate_rooms(room_size, object, method):
 	for room in rooms:
-		var room_inst = room_scene.instance()
+		var room_layout = room_layouts[randi()%room_layouts.size()]
+		var room_inst = room_layout.instance()
 		object.add_child(room_inst)
 		room_inst.global_position = Vector2(room.x * room_size.x, room.y * room_size.y)
 		directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
@@ -63,6 +62,3 @@ func is_valid(vector, matrix_size):
 	# Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-	
-func change_room(dir):
-	print('adler')
