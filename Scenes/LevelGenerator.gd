@@ -20,10 +20,9 @@ func generate():
 		level_matrix.append(row)
 	
 	var current_position = Vector2(randi()%level_size, randi()%level_size)
-#	var current_position = Vector2(0, 0)
-	
 	var position_stack = [current_position]
 	
+	# DFS
 	while(current_room_count < room_count):
 		while(rooms.has(current_position)):
 			current_position = position_stack.pop_back()
@@ -35,11 +34,6 @@ func generate():
 		for dir in directions:
 			if(is_valid(current_position + dir, level_size)):
 				position_stack.append(current_position + dir)
-		
-		print(current_position)
-			
-	print(level_matrix)
-			
 
 func instantiate_rooms(room_size, object, method):
 	for room in rooms:
@@ -59,6 +53,3 @@ func instantiate_rooms(room_size, object, method):
 
 func is_valid(vector, matrix_size):
 	return (vector.x < matrix_size and vector.x >= 0 and vector.y < matrix_size and vector.y >= 0)
-	# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
