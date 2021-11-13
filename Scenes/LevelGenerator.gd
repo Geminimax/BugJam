@@ -6,6 +6,7 @@ var room_count = 16
 var current_room_count = 0
 var rooms = []
 var level_matrix = []
+var room_instances = {}
 
 var directions = [Vector2.RIGHT, Vector2.LEFT, Vector2.UP, Vector2.DOWN]
 
@@ -39,6 +40,7 @@ func instantiate_rooms(room_size, room_separation, object, method):
     for room in rooms:
         var room_layout = room_layouts[randi()%room_layouts.size()]
         var room_inst = room_layout.instance()
+        room_instances[room] = room_inst
         object.add_child(room_inst)
         room_inst.global_position = room * (room_size + room_separation)
         directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
@@ -53,3 +55,6 @@ func instantiate_rooms(room_size, room_separation, object, method):
 
 func is_valid(vector, matrix_size):
     return (vector.x < matrix_size and vector.x >= 0 and vector.y < matrix_size and vector.y >= 0)
+    
+func get_room_inst(room):
+    return room_instances[room]
