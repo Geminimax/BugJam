@@ -49,6 +49,7 @@ func get_room_position(room):
 
 func on_room_exit(dir):
     current_room += dir
+    level_generator.instantiate_enemies(current_room, self, player_inst)
     camera.move(get_room_position(current_room) + PositionOffset.CENTER)
     match dir:
         Vector2.UP:

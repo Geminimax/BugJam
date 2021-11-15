@@ -3,14 +3,18 @@ extends Node2D
 signal room_exited
 const TILE_SIZE = 16
 
+export (Array, PackedScene) var enemy_types = []
 export (Array,int) var floor_tiles = [1]
 var room_size = Vector2(640,368)
+var clear = false
 
 onready var north_door = $Doors/North
 onready var south_door = $Doors/South
 onready var west_door = $Doors/West
 onready var east_door = $Doors/East
 onready var tilemap = $TileMap
+onready var enemy_positions = $EnemySpawn.get_children()
+
 func _ready():
     draw_floor()
     pass # Replace with function body.

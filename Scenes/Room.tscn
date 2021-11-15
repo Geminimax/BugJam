@@ -30,6 +30,8 @@ rotation = 1.5708
 position = Vector2( 624, 176 )
 rotation = 1.5708
 
+[node name="EnemySpawn" type="Node2D" parent="."]
+
 [connection signal="door_entered" from="Doors/North" to="." method="_on_North_door_entered"]
 [connection signal="door_entered" from="Doors/South" to="." method="_on_South_door_entered"]
 [connection signal="door_entered" from="Doors/West" to="." method="_on_West_door_entered"]
