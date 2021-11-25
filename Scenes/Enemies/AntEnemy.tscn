@@ -5,10 +5,9 @@
 
 [node name="AntEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-move_speed = 30
+move_speed = 40
 
 [node name="AnimatedSprite" parent="Body" index="0"]
-frame = 2
 playing = true
 
 [editable path="Body"]

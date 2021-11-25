@@ -25,7 +25,10 @@ func set_neighbors(north, south, west, east):
     $Doors/West.active = true if west else false
     $Doors/East.active = true if east else false
     
-    
+
+func open_doors():
+    for door in $Doors.get_children():
+        door.open = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

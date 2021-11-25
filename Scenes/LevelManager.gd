@@ -24,6 +24,7 @@ func instantiate_player():
     player_inst = player_scene.instance()
     add_child(player_inst)
     set_player_position(current_room)
+    level_generator.get_room_inst(current_room).open_doors()
 
 func set_player_position(room, pos=null):
     var room_inst = level_generator.get_room_inst(room)

@@ -49,15 +49,15 @@ script = ExtResource( 2 )
 [node name="Body" parent="." instance=ExtResource( 3 )]
 collision_layer = 0
 
-[node name="Sprite" type="Sprite" parent="Body"]
-texture = ExtResource( 21 )
-
-[node name="AnimatedSprite" parent="Body" index="1"]
+[node name="AnimatedSprite" parent="Body" index="0"]
 z_index = 1
 frames = SubResource( 1 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
+
+[node name="Sprite" type="Sprite" parent="Body"]
+texture = ExtResource( 21 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
 shape = SubResource( 2 )
@@ -83,7 +83,6 @@ texture = ExtResource( 22 )
 energy = 0.6
 
 [node name="KnockbackTimer" type="Timer" parent="."]
-
 [connection signal="health_changed" from="Health" to="." method="_on_Health_health_changed"]
 [connection signal="area_entered" from="Body/Area2D" to="." method="_on_Area2D_area_entered"]
 

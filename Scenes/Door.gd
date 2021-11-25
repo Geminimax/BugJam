@@ -13,6 +13,7 @@ func set_open(value):
     if(open):
         $Area2D/CollisionShape2D.set_deferred("disabled", false)
         $StaticBody2D/CollisionShape2D.set_deferred("disabled", true)
+        $Sprite.play("open")
     else:
         $Area2D/CollisionShape2D.set_deferred("disabled", true)
         $StaticBody2D/CollisionShape2D.set_deferred("disabled", false)
@@ -24,8 +25,8 @@ func set_active(value):
         $StaticBody2D/CollisionShape2D.set_deferred("disabled", true)
         visible = false
     else:
-        $Area2D/CollisionShape2D.set_deferred("disabled", open)
-        $StaticBody2D/CollisionShape2D.set_deferred("disabled", not open)
+        $Area2D/CollisionShape2D.set_deferred("disabled", !open)
+        $StaticBody2D/CollisionShape2D.set_deferred("disabled", open)
         visible = true
 
 
