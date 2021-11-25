@@ -10,6 +10,8 @@ func _ready():
 
 func set_open(value):
     open = value
+    if(!active):
+        return
     if(open):
         $Area2D/CollisionShape2D.set_deferred("disabled", false)
         $StaticBody2D/CollisionShape2D.set_deferred("disabled", true)

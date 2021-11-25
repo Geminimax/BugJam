@@ -7,6 +7,9 @@
 script = ExtResource( 2 )
 move_speed = 40
 
+[node name="Health" parent="." index="0"]
+max_health = 3
+
 [node name="AnimatedSprite" parent="Body" index="0"]
 frame = 1
 playing = true

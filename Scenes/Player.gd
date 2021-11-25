@@ -37,7 +37,8 @@ func _physics_process(delta):
     else:
         sprite.play("idle")
     var look_vec = get_global_mouse_position() - body.global_position
-    #body.global_rotation = atan2(look_vec.y, look_vec.x)
+    gun.position = look_vec.normalized() * 10
+    
     
     if Input.is_action_pressed("shoot"):
         if current_cooldown <= 0:

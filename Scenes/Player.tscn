@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Body.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Gun.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Projectile.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Projectiles/PlayerMeleeAttack.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Health.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Sprites/Player/playerWalk8.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/Player/playerWalk6.png" type="Texture" id=8]
@@ -53,7 +53,7 @@ collision_layer = 0
 z_index = 1
 frames = SubResource( 1 )
 animation = "idle"
-frame = 4
+frame = 1
 playing = true
 
 [node name="Sprite" type="Sprite" parent="Body"]
@@ -67,6 +67,7 @@ enabled = true
 cast_to = Vector2( 2000, 0 )
 
 [node name="Gun" parent="Body" instance=ExtResource( 4 )]
+position = Vector2( 10, 0 )
 bullet = ExtResource( 5 )
 
 [node name="Area2D" type="Area2D" parent="Body"]

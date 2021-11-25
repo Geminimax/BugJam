@@ -29,7 +29,7 @@ func set_player(p):
 
 func _on_Area2D_area_entered(area):
     if area.is_in_group("player_attack"):
-        health.take_damage(1)
+        health.take_damage(area.damage_amount)
     pass # Replace with function body.
 
 
