@@ -1,7 +1,7 @@
 extends Node2D
 
-var max_health
-var current_health
+export (int) var max_health = 1
+var current_health = max_health
 
 signal health_changed(health,delta)
 

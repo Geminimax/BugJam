@@ -1,5 +1,6 @@
 extends Node2D
 
+signal enemy_spawn(enemy)
 var level_size = 8
 #var direction_change_chance 
 var room_count = 16
@@ -66,8 +67,9 @@ func instantiate_enemies(room, level_manager, player):
         new_enemy.global_position = pos.global_position
         new_enemy.player = player.body
         new_enemy.connect("enemy_killed", player, "on_enemy_killed")
+        emit_signal("enemy_spawn", new_enemy)
     room_inst.clear = true
-
+    
 func is_valid(vector, matrix_size):
     return (vector.x < matrix_size and vector.x >= 0 and vector.y < matrix_size and vector.y >= 0)
     

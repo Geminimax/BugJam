@@ -9,6 +9,7 @@ const PositionOffset = {CENTER = Vector2(180, 120), NORTH = Vector2(0, 60), SOUT
 
 onready var level_generator = $LevelGenerator
 onready var camera = $Camera
+var current_room_enemy_count = 0
 
 var player_scene = load("res://Scenes/Player.tscn")
 
@@ -24,8 +25,10 @@ func instantiate_player():
     player_inst = player_scene.instance()
     add_child(player_inst)
     set_player_position(current_room)
-    level_generator.get_room_inst(current_room).open_doors()
+    finish_room()
 
+func finish_room():
+    level_generator.get_room_inst(current_room).open_doors()
 func set_player_position(room, pos=null):
     var room_inst = level_generator.get_room_inst(room)
     var door_position
@@ -63,3 +66,15 @@ func on_room_exit(dir):
             set_player_position(current_room, Vector2.LEFT)
         _:
             set_player_position(current_room)
+
+
+func _on_LevelGenerator_enemy_spawn(enemy):
+    current_room_enemy_count += 1
+    
+    enemy.connect("enemy_killed", self, "on_enemy_killed")
+
+func on_enemy_killed(enemy):
+    print("enemy_killed")
+    current_room_enemy_count -= 1
+    if(current_room_enemy_count <= 0):
+        finish_room()

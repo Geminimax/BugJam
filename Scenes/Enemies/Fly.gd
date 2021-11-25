@@ -34,6 +34,6 @@ func _on_Area2D_area_entered(area):
 
 
 func _on_Health_health_changed(health,delta):
-    if(health < 0):
+    print("health changed")
+    if(health == 0):
         kill()
-    pass # Replace with function body.
