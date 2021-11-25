@@ -5,7 +5,7 @@ const TILE_SIZE = 16
 
 export (Array, PackedScene) var enemy_types = []
 export (Array,int) var floor_tiles = [1]
-var room_size = Vector2(640,368)
+onready var room_size = $RoomSize.shape.extents * 2
 var clear = false
 
 onready var north_door = $Doors/North

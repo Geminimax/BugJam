@@ -3,9 +3,9 @@ extends Node2D
 var player_inst
 var current_room
 
-var room_size = Vector2(640, 368)
+var room_size = Vector2(360, 240)
 var room_separation = Vector2(32,32)
-const PositionOffset = {CENTER = Vector2(320, 180), NORTH = Vector2(0, 60), SOUTH = Vector2(0, -60), WEST = Vector2(60, 0), EAST = Vector2(-60, 0)}
+const PositionOffset = {CENTER = Vector2(180, 120), NORTH = Vector2(0, 60), SOUTH = Vector2(0, -60), WEST = Vector2(60, 0), EAST = Vector2(-60, 0)}
 
 onready var level_generator = $LevelGenerator
 onready var camera = $Camera
