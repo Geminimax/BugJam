@@ -1,23 +1,63 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Sprites/Enemy2/Enemy2Walk1.png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Enemies/Fly.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Enemies/BaseEnemy.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Health.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Body.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Sprites/Enemy2/Enemy2Walk3.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/Enemy2/Enemy2Walk4.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Enemy2/Enemy2Walk2.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/State/StateMachine.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/State/StateKnockback.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Projectiles/DamageArea.gd" type="Script" id=10]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+
+uniform float intensity : hint_range(0, 1) = 0;
+
+void fragment() {
+    COLOR = texture(TEXTURE,UV);
+    COLOR = mix(COLOR, vec4(1.0,1.0,1.0,COLOR.a), intensity);
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/intensity = 0.0
+
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "knockback",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 1 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
-"name": "default",
+"name": "porsue",
 "speed": 12.0
 } ]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=4]
 radius = 4.59619
+
+[sub_resource type="Animation" id=5]
+resource_name = "flash"
+length = 0.1
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/AnimatedSprite:material:shader_param/intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
 
 [node name="Enemy" type="Node2D" groups=[
 "enemy",
@@ -27,10 +67,12 @@ script = ExtResource( 2 )
 [node name="Health" parent="." instance=ExtResource( 3 )]
 
 [node name="Body" parent="." instance=ExtResource( 4 )]
+z_index = 1
 collision_layer = 0
 
 [node name="AnimatedSprite" parent="Body" index="0"]
-frames = SubResource( 1 )
+material = SubResource( 7 )
+frames = SubResource( 3 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Body"]
 cast_to = Vector2( 50, 0 )
@@ -40,13 +82,25 @@ cast_to = Vector2( 50, 0 )
 ]]
 collision_layer = 8
 collision_mask = 16
+script = ExtResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Area2D"]
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
-shape = SubResource( 2 )
-[connection signal="health_changed" from="Health" to="." method="_on_Health_health_changed"]
+shape = SubResource( 4 )
+
+[node name="StateMachine" parent="." instance=ExtResource( 8 )]
+
+[node name="StateKnockback" parent="StateMachine" instance=ExtResource( 9 )]
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/flash = SubResource( 5 )
 [connection signal="area_entered" from="Body/Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]
 
 [editable path="Body"]

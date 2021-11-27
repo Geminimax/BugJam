@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/untilde - insetoslow wip.ogg-0e44a1bd8da141242588445fb18e1226.oggstr"
+
+[deps]
+
+source_file="res://Audio/OST/untilde - insetoslow wip.ogg"
+dest_files=[ "res://.import/untilde - insetoslow wip.ogg-0e44a1bd8da141242588445fb18e1226.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

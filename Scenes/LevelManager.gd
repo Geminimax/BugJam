@@ -5,6 +5,7 @@ var current_room
 
 var room_size = Vector2(360, 240)
 var room_separation = Vector2(32,32)
+var dir_offset = 30
 const PositionOffset = {CENTER = Vector2(180, 120), NORTH = Vector2(0, 60), SOUTH = Vector2(0, -60), WEST = Vector2(60, 0), EAST = Vector2(-60, 0)}
 
 onready var level_generator = $LevelGenerator
@@ -29,22 +30,24 @@ func instantiate_player():
 
 func finish_room():
     level_generator.get_room_inst(current_room).open_doors()
+    level_generator.get_room_inst(current_room).clear = true
 func set_player_position(room, pos=null):
     var room_inst = level_generator.get_room_inst(room)
     var door_position
+    
     match pos:
         Vector2.UP:
             door_position = room_inst.north_door.global_position
-            player_inst.body.global_position = door_position + PositionOffset.NORTH
+            player_inst.body.global_position = door_position + dir_offset * -pos
         Vector2.DOWN:
             door_position = room_inst.south_door.global_position
-            player_inst.body.global_position = door_position + PositionOffset.SOUTH
+            player_inst.body.global_position = door_position + dir_offset * -pos
         Vector2.LEFT:
             door_position = room_inst.west_door.global_position
-            player_inst.body.global_position = door_position + PositionOffset.WEST
+            player_inst.body.global_position = door_position + dir_offset * -pos
         Vector2.RIGHT:
             door_position = room_inst.east_door.global_position
-            player_inst.body.global_position = door_position + PositionOffset.EAST
+            player_inst.body.global_position = door_position + dir_offset * -pos
         _:
             player_inst.body.global_position = get_room_position(room) + PositionOffset.CENTER
 

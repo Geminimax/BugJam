@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Enemies/AntEnemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Enemies/FlyEnemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Enemies/LarvaeEnemy.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 180, 120 )
 
 [node name="Room" instance=ExtResource( 1 )]
-enemy_types = [ ExtResource( 2 ) ]
+enemy_types = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ]
 
 [node name="TileMap" parent="." index="0"]
 position = Vector2( -8, 0 )

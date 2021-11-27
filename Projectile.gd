@@ -1,5 +1,6 @@
 extends Node2D
 
+signal bullet_hit(target)
 signal projectile_destroyed
 var direction
 export (float) var speed = 400
@@ -7,6 +8,7 @@ export (bool) var destroy_on_animation_finished =  false
 export (bool) var player_projectile = false
 export (int) var damage_amount = 1
 export (bool) var destroy_on_hit = true
+export (float) var knockback_str = 1 
 
 onready var col_area = $Area2D
 onready var sprite = $AnimatedSprite
@@ -29,6 +31,7 @@ func destroy():
     queue_free()
     
 func _on_Area2D_area_entered(area):
+    emit_signal("bullet_hit", area)
     if(destroy_on_hit):
         destroy()
 

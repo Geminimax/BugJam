@@ -9,12 +9,15 @@
 [ext_resource path="res://Sprites/Projectiles/attackPlayerMelee6.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/Projectiles/attackPlayerMelee7.png" type="Texture" id=8]
 
+
+
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 8 ) ],
 "loop": false,
 "name": "default",
-"speed": 20.0
+"speed": 26.0
 } ]
 
 [node name="PlayerMeleeAttack" instance=ExtResource( 1 )]

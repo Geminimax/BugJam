@@ -1,50 +1,28 @@
-extends Node2D
+extends "res://Scenes/BaseController.gd"
 
 export var move_speed = 80
 
 var level = 1
 var experience = 0
 var exp_per_level = 1000
-
+var invincible = false
 onready var raycast = $Body/RayCast2D
-onready var body = $Body
 onready var gun = $Body/Gun
-onready var sprite = $Body/AnimatedSprite
+onready var invencibiltiy_timer = $Invencibility
+
 var cooldown = 0.5
 var current_cooldown = 0
-var knockback_strength = 200 
 
 func _ready():
-    yield(get_tree(), "idle_frame")
-    get_tree().call_group("enemies","set_player",self.body)
+    state_machine.change_state("StatePlayerBase")
     
-func _physics_process(delta):
-    var move_vec = Vector2()
-    
-    if Input.is_action_pressed("move_up"):
-        move_vec.y -=1
-    if Input.is_action_pressed("move_down"):
-        move_vec.y +=1
-    if Input.is_action_pressed("move_left"):
-        move_vec.x -=1
-    if Input.is_action_pressed("move_right"):
-        move_vec.x +=1
-    move_vec = move_vec.normalized()
-    body.velocity = body.velocity.linear_interpolate(move_vec * move_speed, delta * 10)
-    
-    if(move_vec != Vector2.ZERO):
-        sprite.play("walk")
-    else:
-        sprite.play("idle")
-    var look_vec = get_global_mouse_position() - body.global_position
-    gun.position = look_vec.normalized() * 10
-    
-    
-    if Input.is_action_pressed("shoot"):
-        if current_cooldown <= 0:
-            gun.fire(look_vec.normalized())
-            current_cooldown = cooldown
+func _process(delta):
     current_cooldown -= delta
+    
+func shoot(dir):
+    if current_cooldown <= 0:
+        gun.fire(dir)
+        current_cooldown = cooldown
 
 func kill():
     get_tree().reload_current_scene()
@@ -62,10 +40,24 @@ func gain_exp(amount):
 func on_enemy_killed(exp_amount):
     gain_exp(exp_amount)
 
-
 func _on_Area2D_area_entered(area):
-    if(area.is_in_group("enemy_damage_area")):
-        on_hit(area)
-    
-func on_hit(source):
-    body.velocity = -(source.global_position - body.global_position).normalized() * knockback_strength
+    if(area.is_in_group("enemy_damage_area") and !invincible):
+        invincible = true
+        invencibiltiy_timer.start()
+        take_damage(area)
+        EffectsManager.hitpause(0.1)
+
+func _on_Gun_bullet_hit(enemy):
+    EffectsManager.hitpause(0.06)
+    EffectsManager.screen_shake(0.2,0.2)
+
+
+func _on_KnockbackTimer_timeout():
+    knockback_finished()
+
+func knockback_finished():
+    state_machine.change_state("StatePlayerBase")
+
+
+func _on_Invencibility_timeout():
+    invincible = false
