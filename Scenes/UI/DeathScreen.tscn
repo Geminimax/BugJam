@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Sprites/UI/ButtonBase.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/UI/ButtonPressed.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/ButtonHover.png" type="Texture" id=3]
+[ext_resource path="res://Font/04B_03__.TTF" type="DynamicFontData" id=4]
+[ext_resource path="res://Scenes/UI/DeathScreen.gd" type="Script" id=5]
+[ext_resource path="res://Sprites/UI/Gradient.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=2]
+size = 8
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=1]
+default_font = SubResource( 2 )
+
+[node name="DeathScreen" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 1 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.709804 )
+margin_right = 360.0
+margin_bottom = 240.0
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -37.0
+margin_right = 32.0
+margin_bottom = 37.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Restart" type="TextureButton" parent="VBoxContainer"]
+margin_right = 64.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/Restart"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+text = "Restart"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackToMenu" type="TextureButton" parent="VBoxContainer"]
+margin_top = 39.0
+margin_right = 64.0
+margin_bottom = 74.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="VBoxContainer/BackToMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+text = "Menu"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="button_down" from="VBoxContainer/Restart" to="." method="_on_Restart_button_down"]

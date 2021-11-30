@@ -4,6 +4,7 @@ export var move_speed = 80
 export var experience = 500
 var separation_distance = 10
 onready var raycast = $RayCast2D
+onready var hit_effect = $HitEffect
 
 var bloodsplatter = load("res://Scenes/VFX/BloodSplatter.tscn")
 var player = null
@@ -36,3 +37,8 @@ func _on_Area2D_area_entered(area):
 func _on_KnockbackTimer_timeout():
     knockback_finished()
 
+func take_damage(dmg_source):
+    .take_damage(dmg_source)
+    hit_effect.global_position = body.global_position
+    hit_effect.frame = 0
+    hit_effect.play()

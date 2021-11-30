@@ -15,6 +15,7 @@ var current_room_enemy_count = 0
 var player_scene = load("res://Scenes/Player.tscn")
 
 func _ready():
+    EffectsManager.camera = camera
     randomize()
     level_generator.generate()
     level_generator.instantiate_rooms(room_size, room_separation, self, 'on_room_exit')

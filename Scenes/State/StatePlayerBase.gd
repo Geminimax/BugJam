@@ -21,7 +21,7 @@ func update(delta):
     else:
         controller.sprite.play("idle")
     var look_vec = controller.get_global_mouse_position() - body.global_position
-    controller.gun.position = look_vec.normalized() * 10
+    controller.gun.position = look_vec.normalized() * 20
     
     
     if Input.is_action_pressed("shoot"):

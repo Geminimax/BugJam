@@ -22,7 +22,8 @@ func _process(delta):
 
 func take_damage(dmg_source):
     health.take_damage(dmg_source.damage_amount)
-    knockback(dmg_source)
+    if(health.current_health > 0):
+        knockback(dmg_source)
 
 func knockback(dmg_source):
     body.velocity = -(dmg_source.global_position - body.global_position ).normalized() * base_knockback_str

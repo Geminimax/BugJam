@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/UI/HealthBarFrame.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/UI/HealthBarEmpty.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/UI/HealthBarFull.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/UI/HealthBarUI.gd" type="Script" id=4]
+
+[node name="HealthBarUI" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -180.0
+margin_top = -120.0
+margin_right = 180.0
+margin_bottom = 120.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Frame" type="TextureRect" parent="."]
+margin_left = -3.0
+margin_right = 13.0
+margin_bottom = 16.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Empty" type="TextureRect" parent="."]
+margin_left = -3.0
+margin_right = 13.0
+margin_bottom = 16.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Full" type="TextureRect" parent="."]
+margin_left = -3.0
+margin_right = 13.0
+margin_bottom = 16.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
